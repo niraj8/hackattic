@@ -1,7 +1,9 @@
 package helper
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -27,4 +29,32 @@ func GetChallenge(problemSlug string, problem interface{}) error {
 	return nil
 }
 
-// func SubmitChallengeSolution() {}
+type SolutionResponse map[string]interface{}
+
+func SubmitChallengeSolution(problemSlug string, solution interface{}) (*SolutionResponse, error) {
+	hackatticAccessToken := os.Getenv("HACKATTIC_ACCESS_TOKEN")
+
+	responseJSON, err := json.Marshal(&solution)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal solution to json: %v", err)
+	}
+	log.Println("response json" + string(responseJSON))
+	responseBody := bytes.NewBuffer(responseJSON)
+
+	resp, err := http.Post(
+		"https://hackattic.com/challenges/"+problemSlug+"/solve?access_token="+hackatticAccessToken,
+		"application/json", responseBody)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	var solutionResponse SolutionResponse
+
+	err = json.NewDecoder(resp.Body).Decode(&solutionResponse)
+	if err != nil {
+		return nil, fmt.Errorf("failed to unmarshal solution response: %v", err)
+	}
+
+	return &solutionResponse, nil
+}
