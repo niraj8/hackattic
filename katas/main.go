@@ -8,11 +8,10 @@ import (
 )
 
 func main() {
-	// solution.WhatDayWasIt()
 	scanner := bufio.NewScanner(os.Stdin)
 	for scanner.Scan() {
 		input := scanner.Text()
-		result := solution.ItsAlmostCompression(input)
+		result := solution.OpenParens(input)
 		fmt.Println(result)
 	}
 
