@@ -1,4 +1,4 @@
-package main
+package solution
 
 import (
 	"bufio"
@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-func main() {
+func Debasing64() {
 	scanner := bufio.NewScanner(os.Stdin)
 	for scanner.Scan() {
 		input := scanner.Text()

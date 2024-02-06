@@ -1,4 +1,4 @@
-package main
+package solution
 
 import (
 	"bufio"
@@ -8,7 +8,7 @@ import (
 	"strconv"
 )
 
-func main() {
+func AlmostBinary() {
 
 	// 0 == . | 1 == #
 	scanner := bufio.NewScanner(os.Stdin)

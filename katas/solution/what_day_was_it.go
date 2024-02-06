@@ -1,4 +1,4 @@
-package main
+package solution
 
 import (
 	"bufio"
@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-func main() {
+func WhatDayWasIt() {
 	scanner := bufio.NewScanner(os.Stdin)
 	for scanner.Scan() {
 		input := scanner.Text()
