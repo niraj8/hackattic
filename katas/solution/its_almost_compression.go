@@ -14,26 +14,23 @@ func ItsAlmostCompression(input string) string {
 	for _, chr := range input[1:] {
 		if chr == prev {
 			counter += 1
-		} else if counter > 2 {
-			compressed += fmt.Sprint(counter) + string(prev)
-			prev = chr
-			counter = 1
-		} else if counter == 2 {
-			compressed += string(prev) + string(prev)
-			prev = chr
-			counter = 1
 		} else {
-			compressed += string(prev)
+			compressed += processCharacter(prev, counter)
 			prev = chr
 			counter = 1
 		}
 	}
-	if counter > 2 {
-		compressed += fmt.Sprint(counter) + string(prev)
-	} else if counter == 2 {
-		compressed += string(prev) + string(prev)
-	} else {
-		compressed += string(prev)
-	}
+	compressed += processCharacter(prev, counter)
 	return compressed
+}
+
+func processCharacter(c rune, counter int) string {
+	switch counter {
+	case 1:
+		return string(c)
+	case 2:
+		return string(c) + string(c)
+	default:
+		return fmt.Sprint(counter) + string(c)
+	}
 }
