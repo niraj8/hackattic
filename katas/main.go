@@ -18,13 +18,21 @@ func main() {
 	// }
 
 	// kata/sorting_json_lines
-	var lines []string
+	// var lines []string
+	// for scanner.Scan() {
+	// 	input := scanner.Text()
+	// 	lines = append(lines, input)
+	// }
+	// result := solution.SortingJsonLines(lines)
+	// for _, line := range result {
+	// 	fmt.Println(line)
+	// }
+
+	// kata/the_sum_of_things
 	for scanner.Scan() {
 		input := scanner.Text()
-		lines = append(lines, input)
+		result := solution.TheSumOfThings(input)
+		fmt.Println(result)
 	}
-	result := solution.SortingJsonLines(lines)
-	for _, line := range result {
-		fmt.Println(line)
-	}
+
 }
