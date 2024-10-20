@@ -9,6 +9,9 @@ import (
 	"os"
 )
 
+const HACKATTIC_URL = "https://hackattic.com"
+const CHALLENGES_BASE_URL = HACKATTIC_URL + "/challenges/"
+
 func HandleError(err error) {
 	if err != nil {
 		log.Fatalln(err)
@@ -17,7 +20,7 @@ func HandleError(err error) {
 
 func GetChallenge(problemSlug string, problem interface{}) error {
 	hackatticAccessToken := os.Getenv("HACKATTIC_ACCESS_TOKEN")
-	resp, err := http.Get("https://hackattic.com/challenges/" + problemSlug + "/problem?access_token=" + hackatticAccessToken)
+	resp, err := http.Get(CHALLENGES_BASE_URL + problemSlug + "/problem?access_token=" + hackatticAccessToken)
 	if err != nil {
 		return err
 	}
@@ -42,7 +45,7 @@ func SubmitChallengeSolution(problemSlug string, solution interface{}) (*Solutio
 	responseBody := bytes.NewBuffer(responseJSON)
 
 	resp, err := http.Post(
-		"https://hackattic.com/challenges/"+problemSlug+"/solve?access_token="+hackatticAccessToken,
+		CHALLENGES_BASE_URL+problemSlug+"/solve?access_token="+hackatticAccessToken,
 		"application/json", responseBody)
 	if err != nil {
 		return nil, err
